@@ -5,7 +5,7 @@ import pandas as pd
 from pydantic import BaseModel
 from typing import Optional
 
-model = joblib.load("app/model/model_forest_best.pkl")
+model = joblib.load("app/model/model_compressed.pkl")
 num_pipeline = joblib.load("app/pipelines/num_pipeline.pkl")
 cat_pipeline = joblib.load("app/pipelines/cat_pipeline.pkl")
 
