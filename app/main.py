@@ -5,23 +5,30 @@ import numpy as np
 import pandas as pd
 from pydantic import BaseModel
 from typing import Optional
+from pathlib import Path
+import sys
 
-model = joblib.load("app/model/model_compressed.pkl")
-num_pipeline = joblib.load("app/pipelines/num_pipeline.pkl")
-cat_pipeline = joblib.load("app/pipelines/cat_pipeline.pkl")
+BASE_DIR = Path(__file__).parent
+
+# Add the app directory to Python path so pickles can find 'pipelines'
+sys.path.insert(0, str(BASE_DIR))
+
+model = joblib.load(BASE_DIR / "model" / "model_compressed.pkl")
+num_pipeline = joblib.load(BASE_DIR / "pipelines" / "num_pipeline.pkl")
+cat_pipeline = joblib.load(BASE_DIR / "pipelines" / "cat_pipeline.pkl")
 
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",          # dev frontend
+    "http://localhost:3000",  # React dev server
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins,   # Can also use ["*"] for all origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
+    allow_methods=["*"],     # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],     # Allow all headers
 )
 
 class X(BaseModel):
