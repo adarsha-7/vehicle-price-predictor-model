@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 import numpy as np
 import pandas as pd
@@ -10,6 +11,18 @@ num_pipeline = joblib.load("app/pipelines/num_pipeline.pkl")
 cat_pipeline = joblib.load("app/pipelines/cat_pipeline.pkl")
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",          # dev frontend
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_header=["*"]
+)
 
 class X(BaseModel):
     year: float
