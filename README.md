@@ -33,6 +33,7 @@
 #### Send a POST request at https://vehicle-price-predictor-model-render.onrender.com/predict using Postman or similar tool
 #### Example of body(JSON):
 
+```
 {   
     "year": 2021,
     "odometer": 100000,
@@ -44,3 +45,4 @@
     "drive": "rwd",
     "type": "van"
 }
+```
